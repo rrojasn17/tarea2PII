@@ -70,38 +70,35 @@ Flujo del menú (ejemplo):
 
 ---
 
+
 ## 4) Diagramas (Mermaid)
 
-### 4.1 Arquitectura (capas / puertos y adaptadores)
+
+### 4.1 Arquitectura (capas / puertos y adaptadores) — *versión compatible con GitHub*
 
 ```mermaid
 flowchart LR
   subgraph UI
-    CLI[cli.py]
+    CLI["cli.py"]
   end
 
   subgraph Services
-    SM[ServicioMultas]
+    SM["ServicioMultas"]
   end
 
   subgraph Domain
-    M[modelos.py
-Usuario|Material|Prestamo|ReciboMulta]
-    P[politicas.py
-PoliticaMulta +
-FijaPorDia|Escalonada|ConTope|ConDescuento]
+    M["modelos.py<br/>Usuario · Material · Prestamo · ReciboMulta"]
+    P["politicas.py<br/>PoliticaMulta +<br/>FijaPorDia · Escalonada · ConTope · ConDescuento"]
   end
 
   subgraph Ports
-    R[(RepositorioRecibos
-Protocol)]
-    F[(FormateadorRecibo
-Protocol)]
+    R[("(RepositorioRecibos<br/>Protocol)")]
+    F[("(FormateadorRecibo<br/>Protocol)")]
   end
 
   subgraph Adapters
-    RA[repo_archivo.py]
-    FT[formateador_texto.py]
+    RA["repo_archivo.py"]
+    FT["formateador_texto.py"]
   end
 
   CLI --> SM
@@ -113,7 +110,8 @@ Protocol)]
   F --> FT
 ```
 
-### 4.2 Secuencia “calcular y guardar”
+
+### 4.2 Secuencia “calcular y guardar” — *versión compatible con GitHub*
 
 ```mermaid
 sequenceDiagram
@@ -132,6 +130,7 @@ sequenceDiagram
   Repo-->>S: ok
   S-->>U: ReciboMulta (y texto)
 ```
+
 
 ---
 
