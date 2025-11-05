@@ -212,25 +212,8 @@ if __name__ == "__main__":
 
 ---
 
-## 8) Demostración en video/GIF (2–3 min)
 
-1. **Caso A**: Devolver con `FijaPorDia(tarifa=100)`  
-2. **Caso B**: Devolver con `Escalonada(n=3, 50, 100)`  
-3. **Decorador**: Aplicar `ConDescuento(..., 20%)` y mostrar cambio en el monto.  
-4. **Evidencias**: Mostrar cómo `listar_recibos` recupera lo guardado.
-
-Sugerencia para GIF con `ffmpeg` (Linux/macOS):
-
-```bash
-# Grabar pantalla (ajustar :0.0 y resolución según su equipo)
-ffmpeg -video_size 1280x720 -f x11grab -i :0.0 -framerate 30 demo.mp4
-# Convertir a GIF (opcional)
-ffmpeg -i demo.mp4 -vf "fps=10,scale=960:-1:flags=lanczos" demo.gif
-```
-
----
-
-## 9) Anti-ejemplo y refactor
+## 8) Anti-ejemplo y refactor
 
 **Antes (mala práctica, OCP violado):**
 ```python
@@ -242,19 +225,9 @@ else:
     multa = dias * 100
 ```
 
-**Después (mejor diseño, OCP + Estrategia + Decorador):**
-```python
-politica = FijaPorDia(100)
-if usuario.categoria == "estudiante":
-    politica = ConDescuento(politica, 20)
-elif usuario.categoria == "docente":
-    politica = ConDescuento(politica, 10)
-multa = politica.calcular(dias, tipo_material)
-```
 
----
 
-## 10) Decisiones de diseño y uso de IA (breve)
+## 9) Decisiones de diseño y uso de IA  que tomamos
 
 - **Estrategia** para políticas (`PoliticaMulta` + implementaciones).
 - **Decoradores** (`ConDescuento`, `ConTope`) para componer reglas sin modificar las existentes (**OCP**).
@@ -264,29 +237,10 @@ multa = politica.calcular(dias, tipo_material)
 
 ---
 
-## 11) Auto-evaluación (plantilla)
 
-- **SOLID/Deméter**: ✔️ aplicado consistentemente en capas, puertos y adaptadores.  
-- **Políticas/Decoradores**: ✔️ `FijaPorDia`, `Escalonada`, `ConTope`, `ConDescuento` con pruebas de bordes.  
-- **Servicio y CLI**: ✔️ flujo mínimo completo (`registrar → calcular/emitir → guardar → listar`).  
-- **Persistencia/Formateo**: ✔️ desacoplados por Protocol.  
-- **Documentación**: ✔️ README con diagramas Mermaid, mapa SOLID, instrucciones.  
-- **Mejoras futuras**: manejo de i18n, nuevos tipos de material, exporte CSV/PDF del recibo.
 
----
-
-## 12) Checklist de “hecho”
-
-- [x] 3+ políticas + 1 decorador funcional.  
-- [x] Servicio desacoplado (DIP) y UI cumpliendo Deméter.  
-- [x] Repositorio y formateador vía Protocol (ISP + DIP).  
-- [x] README con **dos diagramas Mermaid**, mapa SOLID e instrucciones.  
-- [x] **Pruebas** con casos borde y sin dependencia de UI.  
-
----
 
 > **Cómo correr solo las pruebas** (si desea separarlas):
 > ```bash
 > python tests_simple.py
 > ```
-> **Cómo generar evidencias**: capture la pantalla del CLI ejecutando 2 políticas + decorador y guarde el GIF/MP4 en la carpeta del proyecto.
